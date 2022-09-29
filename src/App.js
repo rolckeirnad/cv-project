@@ -1,4 +1,5 @@
 import './App.css';
+import Footer from './components/Footer';
 import Header from './components/Header';
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
       {/* Professional aim: Position title, Salary, Description */}
       {/* Work Experience: [{Company name, position title, tasks:title,description, date of work:start,end}] */}
       {/* Education: [{school name, title of study, date of study:start,end}] */}
-      {/* footer */}
+      <Footer />
     </div>
   );
 }

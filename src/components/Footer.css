@@ -1,0 +1,12 @@
+.Footer {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+  background-color: rgb(199, 198, 198);
+}
+
+.Footer__Link {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
