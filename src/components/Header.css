@@ -1,0 +1,24 @@
+.Header {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(110, 110, 255);
+  padding: 20px 0;
+}
+
+.Header__Title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.Header__Button {
+  border: none;
+  border-radius: 5px;
+}
+
+.Header__Button--red {
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 10px;
+}
