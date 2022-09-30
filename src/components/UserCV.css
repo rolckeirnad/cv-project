@@ -1,0 +1,80 @@
+.UserCV {
+  overflow-y: auto;
+  background-color: #f1f1f1;
+}
+
+.UserCV::-webkit-scrollbar {
+  width: 35px;
+}
+
+.UserCV::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  opacity: 0;
+}
+
+.UserCV::-webkit-scrollbar-thumb {
+  border: 10px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 100px;
+  background-color: #6e6eff;
+}
+
+.UserCV__card {
+  border: 1px solid rgb(185, 185, 185);
+  border-radius: 5px;
+  background-color: white;
+  padding: 12px 25px 15px;
+  margin: 20px 100px 20px 50px;
+  transition: ease-in 150ms 50ms;
+}
+
+.UserCV__card:hover {
+  transform: scale(1.02);
+  box-shadow: 5px 5px 2px 1px rgb(0 0 255 / 20%);
+}
+
+.UserCV__card__title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.UserCV__card--position {
+  position: relative;
+}
+
+.UserCV__block {
+  margin: 5px 0 10px;
+  padding-left: 5px;
+}
+
+.UserCV__aim__text--light {
+  color: rgb(157, 156, 156);
+  font-size: 19px;
+  line-height: 1rem;
+}
+
+.UserCV__aim__text--offset-up {
+  position: relative;
+  top: 5px;
+}
+
+.UserCV__aim__text--offset-down {
+  position: relative;
+  top: -3px;
+}
+
+.UserCV__aim__text--title {
+  font-size: 25px;
+  line-height: 2rem;
+}
+
+.UserCV__aim__text--title,
+.UserCV__aim__text--light {
+  border-left: 4px solid rgb(101, 101, 255);
+  padding-left: 3px;
+}
+
+.UserCV__aim__text--p {
+  font-size: 20px;
+  padding: 5px 0 5px 3px;
+}
