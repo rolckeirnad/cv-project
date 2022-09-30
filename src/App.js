@@ -10,7 +10,7 @@ class App extends React.Component {
     this.state = {
       user: {
         profile: {
-          avatar: 'http://placekitten.com/96/139',
+          avatar: 'http://placekitten.com/200/200',
           name: 'Your Name Here',
           country: 'México',
           city: 'CDMX',
