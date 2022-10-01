@@ -27,7 +27,7 @@ class UserCV extends React.Component {
   }
 
   render() {
-    const { aim, experience, education } = this.props
+    const { aim, experience, education, updateState } = this.props
     const { edit } = this.state
     return (
       <div className="UserCV">
@@ -40,7 +40,7 @@ class UserCV extends React.Component {
               <p className="UserCV__aim__text--p">{aim.description}</p>
             </div>
           </div> :
-          <ProfessionalAimForm aim={aim} toggle={this.toggleEdit} />}
+          <ProfessionalAimForm aim={aim} toggle={this.toggleEdit} updateState={updateState} />}
         <div className="UserCV__card UserCV__experience">
           <p className="UserCV__card__title">Professional experience</p>
           {experience.map((work, index) => {

@@ -30,13 +30,26 @@ class App extends React.Component {
         ],
       },
     }
+    this.setNewState = this.setNewState.bind(this)
   }
+
+  setNewState(section, obj) {
+    this.setState((state) => {
+      return {
+        user: {
+          ...state.user,
+          [section]: { ...obj }
+        }
+      }
+    })
+  }
+
   render() {
     const { user } = this.state;
     return (
       <div className="App" >
         <Header />
-        <Content user={user} />
+        <Content user={user} updateState={this.setNewState} />
         <Footer />
       </div>
     )
