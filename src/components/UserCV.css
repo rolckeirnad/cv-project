@@ -19,7 +19,8 @@
   background-color: #6e6eff;
 }
 
-.UserCV__card {
+.UserCV__card,
+.UserCV__card--static {
   border: 1px solid rgb(185, 185, 185);
   border-radius: 5px;
   background-color: white;
@@ -77,4 +78,38 @@
 .UserCV__aim__text--p {
   font-size: 20px;
   padding: 5px 0 5px 3px;
+}
+
+.UserCV__input,
+.UserCV__textarea {
+  margin: 10px 0;
+  font-size: 18px;
+  width: 100%;
+}
+
+.UserCV__textarea{
+  resize: none;
+}
+
+.UserCV__button{
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.UserCV__button--red{
+  background-color: red;
+  color: white;
+}
+
+.UserCV__button--green{
+  background-color: greenyellow;
+}
+
+.--flex--space-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
