@@ -87,11 +87,26 @@
   width: 100%;
 }
 
-.UserCV__textarea{
+.UserCV__textarea {
   resize: none;
 }
 
-.UserCV__button{
+.UserCV__textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.UserCV__textarea::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  opacity: 0;
+}
+
+.UserCV__textarea::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  border-radius: 40px;
+  background-color: #6e6eff;
+}
+
+.UserCV__button {
   border: none;
   border-radius: 10px;
   padding: 5px 10px;
@@ -99,12 +114,12 @@
   font-weight: bold;
 }
 
-.UserCV__button--red{
+.UserCV__button--red {
   background-color: red;
   color: white;
 }
 
-.UserCV__button--green{
+.UserCV__button--green {
   background-color: greenyellow;
 }
 
