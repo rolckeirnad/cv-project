@@ -10,20 +10,43 @@ class UserCV extends React.Component {
         aim: false,
         experience: false,
         education: false,
-      }
+      },
+      actualExperience: null,
+      actualEducation: null,
     }
     this.toggleEdit = this.toggleEdit.bind(this)
   }
 
-  toggleEdit(section) {
+  toggleEdit(section, e = null) {
     this.setState((state) => {
       return {
         edit: {
           ...state.edit,
           [section]: !state.edit[section],
-        }
+        },
       }
     })
+    if (section !== 'aim' && e !== null) {
+      const id = e.currentTarget.id
+      const key = section === 'experience' ? 'Experience' : 'Education'
+      if (id === "") {
+        this.setState((state) => {
+          return {
+            ...state,
+            [`actual${key}`]: null,
+          }
+        })
+      } else {
+        const arr = section === 'experience' ? this.props.experience : this.props.education
+        const element = arr.find((entry) => entry.id === id)
+        this.setState((state) => {
+          return {
+            ...state,
+            [`actual${key}`]: element,
+          }
+        })
+      }
+    }
   }
 
   render() {
@@ -41,17 +64,17 @@ class UserCV extends React.Component {
             </div>
           </div> :
           <ProfessionalAimForm aim={aim} toggle={this.toggleEdit} updateState={updateState} />}
-        <div className="UserCV__card UserCV__experience">
-          <p className="UserCV__card__title">Professional experience</p>
-          {experience.map((work, index) => {
-            return (
+          <div className="UserCV__card UserCV__experience">
+            <p className="UserCV__card__title">Professional experience</p>
+            {experience.map((work, index) => {
+              return (
               <div className="UserCV__block" key={'work-' + index}>
-                <p className="UserCV__aim__text--title">{work.position} at {work.name}</p>
+                  <p className="UserCV__aim__text--title">{work.position} at {work.name}</p>
                 <p className="UserCV__aim__text--light UserCV__aim__text--offset-down">{work.from.start} - {work.from.end}</p>
-                <p className="UserCV__aim__text--p">{work.tasks}</p>
-              </div>
-            )
-          })}
+                  <p className="UserCV__aim__text--p">{work.tasks}</p>
+                </div>
+              )
+            })}
         </div>
         <div className="UserCV__card UserCV__education">
           <p className="UserCV__card__title">Education</p>
