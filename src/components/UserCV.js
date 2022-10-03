@@ -1,5 +1,6 @@
 import React from "react";
 import ProfessionalAimForm from "./ProfessionalAimForm";
+import ProfessionalExperienceForm from "./ProfessionalExperienceForm";
 import './UserCV.css'
 
 class UserCV extends React.Component {
@@ -63,19 +64,25 @@ class UserCV extends React.Component {
               <p className="UserCV__aim__text--p">{aim.description}</p>
             </div>
           </div> :
-          <ProfessionalAimForm aim={aim} toggle={this.toggleEdit} updateState={updateState} />}
+          <ProfessionalAimForm aim={aim} toggle={this.toggleEdit} updateState={updateState} />
+        }
+        {edit.experience === false ?
           <div className="UserCV__card UserCV__experience">
             <p className="UserCV__card__title">Professional experience</p>
             {experience.map((work, index) => {
               return (
-              <div className="UserCV__block" key={'work-' + index}>
+                <div className="UserCV__block" key={'work-' + index} id={work.id} onClick={(e) => this.toggleEdit('experience', e)}>
                   <p className="UserCV__aim__text--title">{work.position} at {work.name}</p>
-                <p className="UserCV__aim__text--light UserCV__aim__text--offset-down">{work.from.start} - {work.from.end}</p>
+                  <p className="UserCV__aim__text--light UserCV__aim__text--offset-down">
+                    {`${work.from.startMonth} ${work.from.startYear}`} - {`${work.from.endMonth} ${work.from.endYear}`}
+                  </p>
                   <p className="UserCV__aim__text--p">{work.tasks}</p>
                 </div>
               )
             })}
-        </div>
+          </div> :
+          <ProfessionalExperienceForm toggle={this.toggleEdit} actual={this.state.actualExperience} />
+        }
         <div className="UserCV__card UserCV__education">
           <p className="UserCV__card__title">Education</p>
           {education.map((school, index) => {
