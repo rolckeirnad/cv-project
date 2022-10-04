@@ -31,6 +31,7 @@ class App extends React.Component {
       },
     }
     this.setNewState = this.setNewState.bind(this)
+    this.updateSection = this.updateSection.bind(this)
   }
 
   setNewState(section, obj) {
@@ -44,12 +45,29 @@ class App extends React.Component {
     })
   }
 
+  updateSection(section, obj) {
+    console.log(section, obj)
+    let arr = [...this.state.user[section]]
+    let newArr = arr.map((work) => {
+      if (work.id === obj.id) return obj
+      else return work
+    })
+    this.setState((state) => {
+      return {
+        user: {
+          ...state.user,
+          [section]: [...newArr]
+        }
+      }
+    })
+  }
+
   render() {
     const { user } = this.state;
     return (
       <div className="App" >
         <Header />
-        <Content user={user} updateState={this.setNewState} />
+        <Content user={user} updateState={this.setNewState} updateSection={this.updateSection} />
         <Footer />
       </div>
     )

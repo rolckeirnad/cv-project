@@ -16,6 +16,7 @@ class UserCV extends React.Component {
       actualEducation: null,
     }
     this.toggleEdit = this.toggleEdit.bind(this)
+    this.updateEntry = this.updateEntry.bind(this)
   }
 
   toggleEdit(section, e = null) {
@@ -43,11 +44,18 @@ class UserCV extends React.Component {
         this.setState((state) => {
           return {
             ...state,
-            [`actual${key}`]: element,
+            [`actual${key}`]: { ...element, id },
           }
         })
       }
     }
+  }
+
+  updateEntry(section, formInputs) {
+    const { updateSection } = this.props
+    const entry = { ...this.state.actualExperience, ...formInputs }
+    updateSection(section, entry)
+    this.toggleEdit(section)
   }
 
   render() {
@@ -74,14 +82,14 @@ class UserCV extends React.Component {
                 <div className="UserCV__block" key={'work-' + index} id={work.id} onClick={(e) => this.toggleEdit('experience', e)}>
                   <p className="UserCV__aim__text--title">{work.position} at {work.name}</p>
                   <p className="UserCV__aim__text--light UserCV__aim__text--offset-down">
-                    {`${work.from.startMonth} ${work.from.startYear}`} - {`${work.from.endMonth} ${work.from.endYear}`}
+                    {`${work.startMonth} ${work.startYear}`} - {`${work.endMonth} ${work.endYear}`}
                   </p>
                   <p className="UserCV__aim__text--p">{work.tasks}</p>
                 </div>
               )
             })}
           </div> :
-          <ProfessionalExperienceForm toggle={this.toggleEdit} actual={this.state.actualExperience} />
+          <ProfessionalExperienceForm toggle={this.toggleEdit} actual={this.state.actualExperience} updateEntry={this.updateEntry} />
         }
         <div className="UserCV__card UserCV__education">
           <p className="UserCV__card__title">Education</p>

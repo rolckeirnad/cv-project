@@ -5,6 +5,8 @@ class ProfessionalExperienceForm extends React.Component {
     super(props)
     this.monthsList = this.monthsList.bind(this)
     this.yearsList = this.yearsList.bind(this)
+    this.readInputs = this.readInputs.bind(this)
+    this.updateInputs = this.updateInputs.bind(this)
   }
   monthsList() {
     return (
@@ -33,9 +35,25 @@ class ProfessionalExperienceForm extends React.Component {
     )
   }
 
+  readInputs(elements) {
+    let obj = {}
+    for (let each of elements) {
+      if (each.id) obj[each.id] = each.value
+    }
+    return obj
+  }
+
+  updateInputs(e) {
+    e.preventDefault()
+    const form = e.target.parentElement.parentElement
+    const formInputs = this.readInputs(form.elements);
+    const { updateEntry } = this.props
+    console.log(formInputs)
+    updateEntry('experience', formInputs)
+  }
+
   render() {
     const { toggle, actual } = this.props
-    console.log(actual)
     return (
       <form className="UserCV__card--static --flex-column">
         <p className="UserCV__card__title">Professional experience</p>
@@ -45,22 +63,22 @@ class ProfessionalExperienceForm extends React.Component {
         <label className="UserCV__aim__text--light UserCV__aim__text--offset-up --flex-column">Company Name
           <input type="text" id="name" defaultValue={actual.name} />
         </label>
-        <p className="UserCV__aim__text--light UserCV__aim__text--offset-up --flex-column">Start Date
+        <label className="UserCV__aim__text--light UserCV__aim__text--offset-up --flex-column">Start Date
           <div className="--flex">
-            <select name="month" id="startMonth" defaultValue={actual.from.startMonth}>
+            <select name="month" id="startMonth" defaultValue={actual.startMonth}>
               {this.monthsList()}
             </select>
-            <select name="year" id="startYear" defaultValue={actual.from.startYear}>
+            <select name="year" id="startYear" defaultValue={actual.startYear}>
               {this.yearsList()}
             </select>
           </div>
-        </p>
+        </label>
         <label className="UserCV__aim__text--light UserCV__aim__text--offset-up --flex-column">End Date
           <div className="--flex">
-            <select name="month" id="endMonth" defaultValue={actual.from.endMonth}>
+            <select name="month" id="endMonth" defaultValue={actual.endMonth}>
               {this.monthsList()}
             </select>
-            <select name="year" id="endYear" defaultValue={actual.from.endYear}>
+            <select name="year" id="endYear" defaultValue={actual.endYear}>
               {this.yearsList()}
             </select>
           </div>
@@ -69,7 +87,7 @@ class ProfessionalExperienceForm extends React.Component {
           <textarea name="" id="tasks" cols="30" rows="10" defaultValue={actual.tasks} />
         </label>
         <div className="UserCV__block --flex--space-around">
-          <button className="UserCV__button UserCV__button--green" type="submit" >Save</button>
+          <button className="UserCV__button UserCV__button--green" type="submit" onClick={this.updateInputs}>Save</button>
           <button className="UserCV__button UserCV__button--red" type="button" onClick={(e) => toggle('experience', e)}>Cancel</button>
         </div>
       </form>
