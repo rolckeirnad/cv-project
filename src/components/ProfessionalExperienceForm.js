@@ -48,8 +48,7 @@ class ProfessionalExperienceForm extends React.Component {
     const form = e.target.parentElement.parentElement
     const formInputs = this.readInputs(form.elements);
     const { updateEntry } = this.props
-    console.log(formInputs)
-    updateEntry('experience', formInputs)
+    updateEntry('experience', formInputs, e)
   }
 
   render() {

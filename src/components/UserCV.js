@@ -28,9 +28,9 @@ class UserCV extends React.Component {
         },
       }
     })
+    const key = section === 'experience' ? 'Experience' : 'Education'
     if (section !== 'aim' && e !== null) {
       const id = e.currentTarget.id
-      const key = section === 'experience' ? 'Experience' : 'Education'
       if (id === "") {
         this.setState((state) => {
           return {
@@ -41,6 +41,7 @@ class UserCV extends React.Component {
       } else {
         const arr = section === 'experience' ? this.props.experience : this.props.education
         const element = arr.find((entry) => entry.id === id)
+        console.log(element)
         this.setState((state) => {
           return {
             ...state,
@@ -48,14 +49,26 @@ class UserCV extends React.Component {
           }
         })
       }
+    } else {
+      const value = section === 'experience' ? this.props.experience : this.props.education
+      let emptyObj = {}
+      Object.keys(value[0]).forEach((v) => {
+        emptyObj[v] = ''
+      })
+      this.setState((state) => {
+        return {
+          ...state,
+          [`actual${key}`]: { ...emptyObj },
+        }
+      })
     }
   }
 
-  updateEntry(section, formInputs) {
+  updateEntry(section, formInputs, e) {
     const { updateSection } = this.props
     const entry = { ...this.state.actualExperience, ...formInputs }
     updateSection(section, entry)
-    this.toggleEdit(section)
+    this.toggleEdit(section, e)
   }
 
   render() {
@@ -76,7 +89,9 @@ class UserCV extends React.Component {
         }
         {edit.experience === false ?
           <div className="UserCV__card UserCV__experience">
-            <p className="UserCV__card__title">Professional experience</p>
+            <p className="UserCV__card__title">Professional experience
+              <button type="button" className="UserCV__button UserCV__button--green" onClick={(e) => this.toggleEdit('experience')}>Add</button>
+            </p>
             {experience.map((work, index) => {
               return (
                 <div className="UserCV__block" key={'work-' + index} id={work.id} onClick={(e) => this.toggleEdit('experience', e)}>

@@ -46,12 +46,19 @@ class App extends React.Component {
   }
 
   updateSection(section, obj) {
-    console.log(section, obj)
+    let updated = false
     let arr = [...this.state.user[section]]
     let newArr = arr.map((work) => {
-      if (work.id === obj.id) return obj
+      if (work.id === obj.id) {
+        updated = true
+        return { ...obj }
+      }
       else return work
     })
+    if (updated === false) {
+      obj.id = `${section}-${newArr.length + 1}`
+      newArr.push(obj)
+    }
     this.setState((state) => {
       return {
         user: {
