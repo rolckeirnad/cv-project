@@ -109,7 +109,9 @@ class UserCV extends React.Component {
         }
         {edit.education === false ?
           <div className="UserCV__card UserCV__education">
-            <p className="UserCV__card__title">Education</p>
+            <p className="UserCV__card__title">Education
+              <button type="button" className="UserCV__button UserCV__button--green" onClick={(e) => this.toggleEdit('education')}>Add</button>
+            </p>
             {education.map((school, index) => {
               return (
                 <div className="UserCV__block" key={'school-' + index} id={school.id} onClick={(e) => this.toggleEdit('education', e)}>
