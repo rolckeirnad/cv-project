@@ -1,4 +1,5 @@
 import React from "react";
+import EducationForm from "./EducationForm";
 import ProfessionalAimForm from "./ProfessionalAimForm";
 import ProfessionalExperienceForm from "./ProfessionalExperienceForm";
 import './UserCV.css'
@@ -41,7 +42,6 @@ class UserCV extends React.Component {
       } else {
         const arr = section === 'experience' ? this.props.experience : this.props.education
         const element = arr.find((entry) => entry.id === id)
-        console.log(element)
         this.setState((state) => {
           return {
             ...state,
@@ -66,7 +66,8 @@ class UserCV extends React.Component {
 
   updateEntry(section, formInputs, e) {
     const { updateSection } = this.props
-    const entry = { ...this.state.actualExperience, ...formInputs }
+    const actualState = section === 'experience' ? this.state.actualExperience : this.state.actualEducation
+    const entry = { ...actualState, ...formInputs }
     updateSection(section, entry)
     this.toggleEdit(section, e)
   }
@@ -106,18 +107,20 @@ class UserCV extends React.Component {
           </div> :
           <ProfessionalExperienceForm toggle={this.toggleEdit} actual={this.state.actualExperience} updateEntry={this.updateEntry} />
         }
-        <div className="UserCV__card UserCV__education">
-          <p className="UserCV__card__title">Education</p>
-          {education.map((school, index) => {
-            return (
-              <div className="UserCV__block" key={'school-' + index}>
-                <p className="UserCV__aim__text--title">{school.name}</p>
-                <p className="UserCV__aim__text--light UserCV__aim__text--offset-down">{school.from.start} - {school.from.end}</p>
-                <p className="UserCV__aim__text--p">{school.title}</p>
-              </div>
-            )
-          })}
-        </div>
+        {edit.education === false ?
+          <div className="UserCV__card UserCV__education">
+            <p className="UserCV__card__title">Education</p>
+            {education.map((school, index) => {
+              return (
+                <div className="UserCV__block" key={'school-' + index} id={school.id} onClick={(e) => this.toggleEdit('education', e)}>
+                  <p className="UserCV__aim__text--title">{school.name}</p>
+                  <p className="UserCV__aim__text--light UserCV__aim__text--offset-down">{school.startYear} - {school.endYear}</p>
+                  <p className="UserCV__aim__text--p">{school.title}</p>
+                </div>
+              )
+            })}
+          </div> :
+          <EducationForm toggle={this.toggleEdit} actual={this.state.actualEducation} updateEntry={this.updateEntry} />}
       </div>
     )
   }
