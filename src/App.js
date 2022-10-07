@@ -31,6 +31,7 @@ class App extends React.Component {
       },
     }
     this.setNewState = this.setNewState.bind(this)
+    this.setProfile = this.setProfile.bind(this)
     this.updateSection = this.updateSection.bind(this)
     this.deleteEntry = this.deleteEntry.bind(this)
   }
@@ -41,6 +42,17 @@ class App extends React.Component {
         user: {
           ...state.user,
           [section]: { ...obj }
+        }
+      }
+    })
+  }
+
+  setProfile(section, obj) {
+    this.setState((state) => {
+      return {
+        user: {
+          ...state.user,
+          [section]: { ...state.user[section], ...obj }
         }
       }
     })
@@ -93,6 +105,7 @@ class App extends React.Component {
           updateState={this.setNewState}
           updateSection={this.updateSection}
           deleteEntry={this.deleteEntry}
+          setProfile={this.setProfile}
         />
         <Footer />
       </div>

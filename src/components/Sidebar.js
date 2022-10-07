@@ -1,23 +1,40 @@
 import React from 'react'
 import './Sidebar.css'
+import SidebarForm from './SidebarForm'
 
 class Sidebar extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isEditable: false,
+      displayForm: false,
     }
+    this.toggleForm = this.toggleForm.bind(this)
   }
+
+  toggleForm() {
+    this.setState({ displayForm: !this.state.displayForm })
+  }
+
   render() {
-    const { profile } = this.props
+    const { avatar, name, city, country, address, email, phone, links } = this.props.profile
+    const { displayForm } = this.state
     return (
       <div className='Sidebar'>
-        <img className='Sidebar__img' src={profile.avatar} alt="user profile" />
-        <p className='Sidebar__name'>{profile.name}</p>
-        <p className='Sidebar__city'>{profile.city}, {profile.country}</p>
-        <p className='Sidebar__address'>{profile.address}</p>
-        <p>Email: {profile.contact.email}</p>
-        <p>Phone: {profile.contact.phone}</p>
+        {displayForm === false ?
+          <div className='Sidebar__userData' onClick={this.toggleForm}>
+            <img className='Sidebar__img' src={avatar} alt='User profile' />
+            <p className='Sidebar__name'>{name}</p>
+            <p className='Sidebar__city'>{city}, {country}</p>
+            <p className='Sidebar__address'>{address}</p>
+            <p>Email: {email}</p>
+            <p>Phone: {phone}</p>
+            <div className="Sidebar__links">
+              {links && links.length > 0 ? links.map((link, index) => {
+                return <li>Hello</li>
+              }) : <></>}
+            </div>
+          </div> :
+          <SidebarForm user={this.props.profile} cancel={this.toggleForm} setProfile={this.props.setProfile} />}
       </div>
     )
   }
