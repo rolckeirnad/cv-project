@@ -123,7 +123,8 @@ class UserCV extends React.Component {
             </p>
             {education.map((school, index) => {
               return (
-                <div className="UserCV__block" key={'school-' + index} id={school.id} onClick={(e) => this.toggleEdit('education', e)}>
+                <div className="UserCV__block --display-hidden" key={'school-' + index} id={school.id} onClick={(e) => this.toggleEdit('education', e)}>
+                  <button className="UserCV__button UserCV__button--red --hidden --delete-position" onClick={(e) => this.deleteEntry(e, 'education')}>Delete</button>
                   <p className="UserCV__aim__text--title">{school.name}</p>
                   <p className="UserCV__aim__text--light UserCV__aim__text--offset-down">{school.startYear} - {school.endYear}</p>
                   <p className="UserCV__aim__text--p">{school.title}</p>
