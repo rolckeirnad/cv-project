@@ -32,6 +32,7 @@ class App extends React.Component {
     }
     this.setNewState = this.setNewState.bind(this)
     this.updateSection = this.updateSection.bind(this)
+    this.deleteEntry = this.deleteEntry.bind(this)
   }
 
   setNewState(section, obj) {
@@ -69,12 +70,30 @@ class App extends React.Component {
     })
   }
 
+  deleteEntry(section, id) {
+    let arr = [...this.state.user[section]]
+    let newArr = arr.filter((entry) => entry.id !== id)
+    this.setState((state) => {
+      return {
+        user: {
+          ...state.user,
+          [section]: [...newArr]
+        }
+      }
+    })
+  }
+
   render() {
     const { user } = this.state;
     return (
       <div className="App" >
         <Header />
-        <Content user={user} updateState={this.setNewState} updateSection={this.updateSection} />
+        <Content
+          user={user}
+          updateState={this.setNewState}
+          updateSection={this.updateSection}
+          deleteEntry={this.deleteEntry}
+        />
         <Footer />
       </div>
     )

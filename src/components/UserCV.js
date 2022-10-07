@@ -18,6 +18,7 @@ class UserCV extends React.Component {
     }
     this.toggleEdit = this.toggleEdit.bind(this)
     this.updateEntry = this.updateEntry.bind(this)
+    this.deleteEntry = this.deleteEntry.bind(this)
   }
 
   toggleEdit(section, e = null) {
@@ -72,6 +73,13 @@ class UserCV extends React.Component {
     this.toggleEdit(section, e)
   }
 
+  deleteEntry(e, section) {
+    e.stopPropagation()
+    const { deleteEntry } = this.props
+    const id = e.target.parentElement.id
+    deleteEntry(section, id)
+  }
+
   render() {
     const { aim, experience, education, updateState } = this.props
     const { edit } = this.state
@@ -95,7 +103,8 @@ class UserCV extends React.Component {
             </p>
             {experience.map((work, index) => {
               return (
-                <div className="UserCV__block" key={'work-' + index} id={work.id} onClick={(e) => this.toggleEdit('experience', e)}>
+                <div className="UserCV__block --display-hidden" key={'work-' + index} id={work.id} onClick={(e) => this.toggleEdit('experience', e)}>
+                  <button className="UserCV__button UserCV__button--red --hidden --delete-position" onClick={(e) => this.deleteEntry(e, 'experience')}>Delete</button>
                   <p className="UserCV__aim__text--title">{work.position} at {work.name}</p>
                   <p className="UserCV__aim__text--light UserCV__aim__text--offset-down">
                     {`${work.startMonth} ${work.startYear}`} - {`${work.endMonth} ${work.endYear}`}

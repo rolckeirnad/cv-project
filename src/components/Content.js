@@ -5,11 +5,18 @@ import UserCV from './UserCV'
 
 class Content extends React.Component {
   render() {
-    const { user, updateState, updateSection } = this.props
+    const { user, updateState, updateSection, deleteEntry } = this.props
     return (
       <div className='Content'>
         <Sidebar profile={user.profile} />
-        <UserCV aim={user.aim} experience={user.experience} education={user.education} updateState={updateState} updateSection={updateSection} />
+        <UserCV
+          aim={user.aim}
+          experience={user.experience}
+          education={user.education}
+          updateState={updateState}
+          updateSection={updateSection}
+          deleteEntry={deleteEntry}
+        />
       </div>
     )
   }
