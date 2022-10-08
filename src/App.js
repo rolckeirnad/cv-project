@@ -3,6 +3,7 @@ import './App.css';
 import Content from './components/Content';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import uniqid from 'uniqid'
 
 class App extends React.Component {
   constructor() {
@@ -69,7 +70,7 @@ class App extends React.Component {
       else return work
     })
     if (updated === false) {
-      obj.id = `${section}-${newArr.length + 1}`
+      obj.id = uniqid()
       newArr.push(obj)
     }
     this.setState((state) => {
