@@ -25,12 +25,12 @@ class Sidebar extends React.Component {
             <img className='Sidebar__img' src={avatar} alt='User profile' />
             <p className='Sidebar__name'>{name}</p>
             <p className='Sidebar__city'>{city}, {country}</p>
-            <p className='Sidebar__address'>{address}</p>
-            <p>Email: {email}</p>
-            <p>Phone: {phone}</p>
+            {address !== '' ? <p className='Sidebar__address'>{address}</p> : <></>}
+            <p className='Sidebar__address'><i className="bi bi-envelope-fill" /> {email}</p>
+            <p className='Sidebar__address'><i className="bi bi-telephone-fill" /> {phone}</p>
             <div className="Sidebar__links">
               {links && links.length > 0 ? links.map((link, index) => {
-                return <li>Hello</li>
+                return <p key={`link-${index}`}>{link}</p>
               }) : <></>}
             </div>
           </div> :
