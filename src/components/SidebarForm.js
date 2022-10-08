@@ -3,8 +3,20 @@ import React from "react";
 class SidebarForm extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      upload: false,
+    }
+    this.toggleUpload = this.toggleUpload.bind(this)
     this.readInputs = this.readInputs.bind(this)
     this.updateInputs = this.updateInputs.bind(this)
+    this.saveURL = this.saveURL.bind(this)
+    this.uploadImage = this.uploadImage.bind(this)
+  }
+
+  toggleUpload() {
+    this.setState({
+      upload: !this.state.upload
+    })
   }
 
   readInputs(elements) {
@@ -24,14 +36,51 @@ class SidebarForm extends React.Component {
     cancel()
   }
 
+  saveURL(e) {
+    const { setProfile } = this.props
+    const url = e.target.parentElement.elements[0].value
+    if (url !== "") {
+      setProfile('profile', { avatar: url })
+      this.toggleUpload()
+    }
+  }
+
+  uploadImage(e) {
+    const { setProfile } = this.props
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      setProfile('profile', { avatar: e.target.result })
+      this.toggleUpload()
+    }
+    reader.readAsDataURL(file)
+  }
+
   render() {
     const { avatar, name, city, country, address, email, phone } = this.props.user
     const { cancel } = this.props
+    const { upload } = this.state
     return (
-      <div>
+      <>
         <div className="Sidebar__imgDiv">
-          <img className='Sidebar__img --edit' src={avatar} alt="User profile" />
-          <button className="Sidebar__img__overlay UserCV__button">Change photo</button>
+          {upload === false ?
+            <>
+              <img className='Sidebar__img --edit' src={avatar} alt="User profile" />
+              <button className="Sidebar__img__overlay UserCV__button" onClick={this.toggleUpload}>Change photo</button>
+            </> :
+            <>
+              <form className="Sidebar__img__form">
+                <label>Image URL:
+                  <input type="text" id="url" />
+                </label>
+                <button className="Sidebar__img__form__save" type="button" onClick={this.saveURL}>Save URL</button>
+                <p>or Upload a file:
+                  <input type="file" id="file" accept="image/jpeg, image/png, image/jpg" onChange={this.uploadImage} />
+                </p>
+                <button className="Sidebar__img__form__cancel" type="button" onClick={this.toggleUpload}>X</button>
+              </form>
+            </>
+          }
         </div>
         <form className="Sidebar__form">
           <label className="Sidebar__label">Name:
@@ -57,7 +106,7 @@ class SidebarForm extends React.Component {
             <button className="UserCV__button UserCV__button--red" type="button" onClick={cancel}>Cancel</button>
           </div>
         </form>
-      </div>
+      </>
     )
   }
 }

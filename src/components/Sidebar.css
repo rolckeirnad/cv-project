@@ -12,21 +12,24 @@
 .Sidebar__img {
   border-radius: 50px 20px;
   width: 100%;
+  max-width: 180px;
+
+  align-self: center;
   height: auto;
   box-shadow: 0px 0px 5px 0px black;
 }
 
 .Sidebar__name {
-  font-size: 30px;
+  font-size: 2.4vw;
   font-weight: bold;
 }
 
 .Sidebar__city {
-  font-size: 20px;
+  font-size: 1.8vw;
 }
 
 .Sidebar__address {
-  font-size: 18px;
+  font-size: 1.7vw;
 }
 
 .Sidebar__form {
@@ -35,22 +38,81 @@
   align-items: stretch;
 }
 
-.Sidebar__label{
+.Sidebar__label {
   display: flex;
   flex-direction: column;
 }
 
-.Sidebar__imgDiv{
+.Sidebar__imgDiv {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.Sidebar__img__overlay {
-  position: absolute;
+.Sidebar__imgDiv:hover .Sidebar__img__overlay {
+  display: block;
 }
 
-.--edit{
+.Sidebar__imgDiv:hover .Sidebar__img {
+  opacity: 100%;
+}
+
+.Sidebar__img__overlay {
+  position: absolute;
+  display: none;
+}
+
+.--edit {
   opacity: 70%;
+}
+
+.Sidebar__img__form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  position: relative;
+  left: 10vw;
+  border: 2px solid #00000026;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px -5px;
+  background-color: white;
+  padding: 15px;
+  z-index: 1;
+}
+
+.Sidebar__img__form>p {
+  line-height: 1.5rem;
+}
+
+.Sidebar__img__form__cancel {
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+  background-color: inherit;
+  position: absolute;
+  padding: 2px 6px;
+  border-radius: 10px;
+  right: 10px;
+  top: 10px;
+}
+
+.Sidebar__img__form__cancel:hover {
+  background-color: rgb(255, 180, 180);
+}
+
+.Sidebar__img__form__save {
+  border: none;
+  font-weight: bold;
+  font-size: 15px;
+  background-color: greenyellow;
+  padding: 10px 6px;
+  border-radius: 10px;
+}
+
+.Sidebar__userData {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
