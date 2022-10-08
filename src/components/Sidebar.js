@@ -24,7 +24,7 @@ class Sidebar extends React.Component {
           <div className='Sidebar__userData' onClick={this.toggleForm}>
             <img className='Sidebar__img' src={avatar} alt='User profile' />
             <p className='Sidebar__name'>{name}</p>
-            <p className='Sidebar__city'>{city}, {country}</p>
+            <p className='Sidebar__city'>{city !== '' ? `${city},` : ''} {country}</p>
             {address !== '' ? <p className='Sidebar__address'>{address}</p> : <></>}
             <p className='Sidebar__address'><i className="bi bi-envelope-fill" /> {email}</p>
             <p className='Sidebar__address'><i className="bi bi-telephone-fill" /> {phone}</p>
