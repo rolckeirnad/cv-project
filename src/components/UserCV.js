@@ -17,11 +17,14 @@ class UserCV extends React.Component {
       actualEducation: null,
     }
     this.toggleEdit = this.toggleEdit.bind(this)
+    this.getEmptyObj = this.getEmptyObj.bind(this)
+    this.setActualSection = this.setActualSection.bind(this)
+    this.addNewEntry = this.addNewEntry.bind(this)
     this.updateEntry = this.updateEntry.bind(this)
     this.deleteEntry = this.deleteEntry.bind(this)
   }
 
-  toggleEdit(section, e = null) {
+  toggleEdit(section, e = null, newEntry = false) {
     this.setState((state) => {
       return {
         edit: {
@@ -30,39 +33,52 @@ class UserCV extends React.Component {
         },
       }
     })
+    if (section !== 'aim' && newEntry === false) this.setActualSection(section, e)
+  }
+
+  getEmptyObj(section) {
+    const expObj = {
+      name: '', position: '', tasks: '', startMonth: 'January', startYear: '2022', endMonth: 'January', endYear: '2022'
+    }
+    const eduObj = {
+      name: '', level: '', title: '', startYear: '2022', endYear: '2022'
+    }
+    return section === 'experience' ? { ...expObj } : { ...eduObj }
+  }
+
+  setActualSection(section, e) {
     const key = section === 'experience' ? 'Experience' : 'Education'
-    if (section !== 'aim' && e !== null) {
-      const id = e.currentTarget.id
-      if (id === "") {
-        this.setState((state) => {
-          return {
-            ...state,
-            [`actual${key}`]: null,
-          }
-        })
-      } else {
-        const arr = section === 'experience' ? this.props.experience : this.props.education
-        const element = arr.find((entry) => entry.id === id)
-        this.setState((state) => {
-          return {
-            ...state,
-            [`actual${key}`]: { ...element, id },
-          }
-        })
-      }
-    } else {
-      const value = section === 'experience' ? this.props.experience : this.props.education
-      let emptyObj = {}
-      Object.keys(value[0]).forEach((v) => {
-        emptyObj[v] = ''
-      })
+    const id = e.currentTarget.id
+    if (id === '') {
       this.setState((state) => {
         return {
           ...state,
-          [`actual${key}`]: { ...emptyObj },
+          [`actual${key}`]: null
+        }
+      })
+    } else {
+      const arr = section === 'experience' ? this.props.experience : this.props.education
+      const element = arr.find((entry) => entry.id === id)
+      this.setState((state) => {
+        return {
+          ...state,
+          [`actual${key}`]: { ...element, id },
         }
       })
     }
+  }
+
+  addNewEntry(section) {
+    const key = section === 'experience' ? 'Experience' : 'Education'
+    const emptyObj = section === 'experience' ? this.getEmptyObj('experience') : this.getEmptyObj('education')
+    console.log(key, emptyObj)
+    this.setState((state) => {
+      return {
+        ...state,
+        [`actual${key}`]: { ...emptyObj },
+      }
+    })
+    this.toggleEdit(section, null, true)
   }
 
   updateEntry(section, formInputs, e) {
@@ -99,7 +115,7 @@ class UserCV extends React.Component {
         {edit.experience === false ?
           <div className="UserCV__card UserCV__experience">
             <p className="UserCV__card__title">Professional experience
-              <button type="button" className="UserCV__button UserCV__button--green" onClick={(e) => this.toggleEdit('experience')}>Add</button>
+              <button type="button" className="UserCV__button UserCV__button--green" onClick={(e) => this.addNewEntry('experience')}>Add</button>
             </p>
             {experience.map((work, index) => {
               return (
@@ -119,7 +135,7 @@ class UserCV extends React.Component {
         {edit.education === false ?
           <div className="UserCV__card UserCV__education">
             <p className="UserCV__card__title">Education
-              <button type="button" className="UserCV__button UserCV__button--green" onClick={(e) => this.toggleEdit('education')}>Add</button>
+              <button type="button" className="UserCV__button UserCV__button--green" onClick={(e) => this.addNewEntry('education')}>Add</button>
             </p>
             {education.map((school, index) => {
               return (
